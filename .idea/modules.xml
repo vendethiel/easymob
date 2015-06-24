@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com-etna-easymob.iml" filepath="$PROJECT_DIR$/.idea/modules/com-etna-easymob.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com-etna-easymob-build.iml" filepath="$PROJECT_DIR$/.idea/modules/com-etna-easymob-build.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/easymob.iml" filepath="$PROJECT_DIR$/.idea/modules/easymob.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/easymob-build.iml" filepath="$PROJECT_DIR$/.idea/modules/easymob-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/easy2.iml" filepath="$PROJECT_DIR$/.idea/modules/easy2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/easy2-build.iml" filepath="$PROJECT_DIR$/.idea/modules/easy2-build.iml" />
     </modules>
   </component>
 </project>

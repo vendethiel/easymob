@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ScalaCompilerConfiguration">
-    <profile name="SBT 1" modules="com-etna-easymob">
+    <profile name="SBT 1" modules="easy2">
       <parameters>
         <parameter value="-bootclasspath" />
         <parameter value="$USER_HOME$/Downloads/android-sdk-macosx/platforms/android-21/android.jar" />
@@ -9,6 +9,5 @@
         <parameter value="$USER_HOME$/Downloads/android-sdk-macosx/platforms/android-21/android.jar" />
       </parameters>
     </profile>
-    <profile name="SBT 2" modules="easymob" />
   </component>
 </project>

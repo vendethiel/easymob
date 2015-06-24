@@ -4,9 +4,9 @@ android.Plugin.androidBuild
 
 localProjects in Android := Nil
 
-minSdkVersion in Android := "android-18"
+minSdkVersion in Android := "21"
 
-targetSdkVersion in Android := "android-21"
+targetSdkVersion in Android := "21"
 
 platformTarget in Android := "android-21"
 

@@ -2,6 +2,7 @@ package com.etna.easymob
 
 import android.app.Activity
 import android.os.Bundle
+//import com.es
 
 class MainActivity extends Activity with TypedFindView {
   /** Called when the activity is first created. */

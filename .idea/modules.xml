@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com-etna-easymob.iml" filepath="$PROJECT_DIR$/.idea/modules/com-etna-easymob.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com-etna-easymob-build.iml" filepath="$PROJECT_DIR$/.idea/modules/com-etna-easymob-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/easymob.iml" filepath="$PROJECT_DIR$/.idea/modules/easymob.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/easymob-build.iml" filepath="$PROJECT_DIR$/.idea/modules/easymob-build.iml" />
     </modules>
   </component>
 </project>

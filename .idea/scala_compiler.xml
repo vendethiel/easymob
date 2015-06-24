@@ -9,5 +9,6 @@
         <parameter value="$USER_HOME$/Downloads/android-sdk-macosx/platforms/android-21/android.jar" />
       </parameters>
     </profile>
+    <profile name="SBT 2" modules="easymob" />
   </component>
 </project>

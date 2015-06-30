@@ -3,28 +3,59 @@ package com.etna.easymob
 import java.{util => ju}
 
 import android.app.Activity
+import android.content.Intent
 import android.os.{StrictMode, Bundle}
-import com.estimote.sdk.BeaconManager.RangingListener
-import com.estimote.sdk.{Region, Beacon, BeaconManager}
+import android.view.View
+import android.widget.Toast
+import com.estimote.sdk.BeaconManager.{NearableListener, ServiceReadyCallback, RangingListener}
+import com.estimote.sdk.{Nearable, Region, Beacon, BeaconManager}
+import org.json.{JSONObject, JSONException}
 
-class MainActivity extends Activity with TypedFindView {
-  val beaconMgr = new BeaconManager(this)
-  var tag : String = ""
+import scala.collection.mutable
 
+object BeaconAugmenter {
+  implicit class SuperBeacon(beacon: Beacon) extends AnyRef {
+    val key = s"${beacon.getMajor}+${beacon.getMinor}"
+  }
+}
+
+object MainActivity {
+  val ESTIMOTE_PROXIMITY_UUID = "b9407f30-f5f8-466e-aff9-25556b57fe6d"
+  val ALL_ESTIMOTE_BEACONS = new Region("regionId", ESTIMOTE_PROXIMITY_UUID, null, null)
+}
+
+class MainActivity extends Activity with TypedFindView { self =>
   override def onCreate(savedInstanceState: Bundle) {
     super.onCreate(savedInstanceState)
+
     setContentView(R.layout.main)
 
-    hackThreadPolicy()
-    beaconMgr.setRangingListener(new RangingListener {
-      override def onBeaconsDiscovered(region: Region, beacons: ju.List[Beacon]): Unit = {
-        println(if (beacons.isEmpty) "hey" else ":(")
+    val emailField = findView(TR.email)
+    val passwordField = findView(TR.password)
+    findView(TR.submit).setOnClickListener(new View.OnClickListener {
+      override def onClick(view: View): Unit = {
+        val email = emailField.getText.toString
+        val password = passwordField.getText.toString
+
+        println(s"I HOPE YOU HAVE $email AND $password")
+
+        (for (userId <- RequestHelper.User.authenticate(email, password)) yield {
+          User.instance = Some(User(userId, email))
+
+          val intent = new Intent(self, classOf[HomeActivity])
+          startActivity(intent)
+        }) getOrElse {
+          Toast.makeText(self, "User does not exist", Toast.LENGTH_LONG).show()
+        }
       }
     })
+
+    hackThreadPolicy()
   }
 
   override def onStop(): Unit = {
-    finish()
+    //finish()
+    super.onStop()
   }
 
   private def hackThreadPolicy(): Unit = {

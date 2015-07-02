@@ -13,17 +13,6 @@ import org.json.{JSONObject, JSONException}
 
 import scala.collection.mutable
 
-object BeaconAugmenter {
-  implicit class SuperBeacon(beacon: Beacon) extends AnyRef {
-    val key = s"${beacon.getMajor}+${beacon.getMinor}"
-  }
-}
-
-object MainActivity {
-  val ESTIMOTE_PROXIMITY_UUID = "b9407f30-f5f8-466e-aff9-25556b57fe6d"
-  val ALL_ESTIMOTE_BEACONS = new Region("regionId", ESTIMOTE_PROXIMITY_UUID, null, null)
-}
-
 class MainActivity extends Activity with TypedFindView { self =>
   override def onCreate(savedInstanceState: Bundle) {
     super.onCreate(savedInstanceState)

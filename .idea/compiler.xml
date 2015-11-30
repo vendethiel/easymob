@@ -18,8 +18,11 @@
         <processorPath useClasspath="true" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="1.7">
+      <module name="easy2" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_STRING" value="-bootclasspath $USER_HOME$/Downloads/android-sdk-macosx/platforms/android-18/android.jar -g" />
+    <option name="ADDITIONAL_OPTIONS_STRING" value="-bootclasspath $USER_HOME$/Downloads/android-sdk-macosx/platforms/android-21/android.jar -g" />
   </component>
 </project>

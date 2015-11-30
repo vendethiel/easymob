@@ -12,6 +12,8 @@ import com.estimote.sdk.Utils.Proximity
 import com.estimote.sdk.{BeaconManager, Beacon, Region, Utils => EstiUtils}
 
 import scala.collection.mutable
+import scalaz._
+import Scalaz._
 
 object BeaconAugmenter {
   implicit class SuperBeacon(beacon: Beacon) extends AnyRef {
@@ -33,8 +35,10 @@ class HomeActivity extends Activity with TypedFindView { view =>
     setContentView(R.layout.home)
 
     for (user <- User.instance) {
-      val str = s"hey ${user.username}@${user.id}"
-      findView(TR.welcometext).setText(str)
+      val welcomeMsg = s"Bienvenue, ${user.username} (#${user.id})"
+      findView(TR.welcometext).setText(welcomeMsg)
+
+      val beaconNames = RequestHelper.Beacons.nameList() | Map()
 
       val beaconManager = new BeaconManager(this)
       val connectedBeacons = mutable.HashMap[String, Long]()
@@ -47,10 +51,12 @@ class HomeActivity extends Activity with TypedFindView { view =>
       val listener = new RangingListener {
         private def sendTimestamp(user: User, beaconKey: String, timeDiff: Long): Unit = {
           RequestHelper.TimeMgr.sendTimestamp(user, beaconKey, timeDiff) match {
-            case Some(true) =>
-              Toast.makeText(view, "Your time online was added to the server!", Toast.LENGTH_LONG).show
-            case _ =>
+            case \/-(true) =>
+              Toast.makeText(view, "Your time online was added to the server!", Toast.LENGTH_LONG).show()
+            case \/-(_) =>
               Toast.makeText(view, "Unable to add your time to that beacon...", Toast.LENGTH_LONG).show()
+            case -\/(error) =>
+              Toast.makeText(view, error, Toast.LENGTH_LONG).show()
           }
         }
 
@@ -77,14 +83,15 @@ class HomeActivity extends Activity with TypedFindView { view =>
               connectedBeacons.remove(beaconKey)
               val timeDiff = System.currentTimeMillis() - time
 
-              for (state <- RequestHelper.TimeMgr.getState(user, beaconKey))
+              for (state <- RequestHelper.TimeMgr.getState(user, beaconKey)) {
                 state match {
                   case "timestamp" => sendTimestamp(user, beaconKey, timeDiff)
-                  case "ok" =>
+                  case "ok" | "" =>
                   case link: String =>
                     val browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link))
                     startActivity(browserIntent)
                 }
+              }
             }
 
 
@@ -94,7 +101,8 @@ class HomeActivity extends Activity with TypedFindView { view =>
           println("------------------------------------------------")
           println("------------------------------------------------")
 
-          findView(TR.welcometext).setText(s"$str\nbeacons\n${connectedBeacons.map { case (k, v) => s"$k-$v" }.mkString("\n")}")
+          val beaconsString = connectedBeacons.keys.map(s => beaconNames.getOrElse(s, s)).mkString("\n")
+          findView(TR.welcometext).setText(s"$welcomeMsg\nbeacons\n$beaconsString")
         }
       }
       beaconManager.setRangingListener(listener)

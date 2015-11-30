@@ -4,9 +4,9 @@
     <profile name="SBT 1" modules="easy2">
       <parameters>
         <parameter value="-bootclasspath" />
-        <parameter value="$USER_HOME$/Downloads/android-sdk-macosx/platforms/android-18/android.jar" />
+        <parameter value="$USER_HOME$/Downloads/android-sdk-macosx/platforms/android-21/android.jar" />
         <parameter value="-javabootclasspath" />
-        <parameter value="$USER_HOME$/Downloads/android-sdk-macosx/platforms/android-18/android.jar" />
+        <parameter value="$USER_HOME$/Downloads/android-sdk-macosx/platforms/android-21/android.jar" />
       </parameters>
     </profile>
   </component>
